@@ -65,6 +65,11 @@
             color: white;
         }
 
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -79,10 +84,6 @@
 
         th {
             background: #eee;
-        }
-
-        #message {
-            font-weight: bold;
         }
     </style>
 </head>
@@ -105,12 +106,112 @@
             placeholder="Enter Employee ID"
         >
 
-        <button class="punch-in" id="punchInButton">
+        <button class="punch-in" onclick="punchIn()">
             Punch In
         </button>
 
-        <button class="punch-out" id="punchOutButton">
+        <button class="punch-out" onclick="punchOut()">
             Punch Out
         </button>
 
         <p id="message"></p>
+    </div>
+
+    <div class="card">
+        <h2>Today's Attendance</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Punch In</th>
+                    <th>Punch Out</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="attendanceTable"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    let attendance = {};
+
+    function getTime() {
+        return new Date().toLocaleTimeString();
+    }
+
+    function punchIn() {
+        const id = document.getElementById("employeeId").value.trim();
+
+        if (id === "") {
+            alert("Please enter Employee ID");
+            return;
+        }
+
+        if (attendance[id]) {
+            alert("Employee already punched in.");
+            return;
+        }
+
+        attendance[id] = {
+            punchIn: getTime(),
+            punchOut: "-",
+            status: "Present"
+        };
+
+        document.getElementById("message").innerText =
+            "Punch In successful for " + id;
+
+        document.getElementById("employeeId").value = "";
+
+        showAttendance();
+    }
+
+    function punchOut() {
+        const id = document.getElementById("employeeId").value.trim();
+
+        if (id === "") {
+            alert("Please enter Employee ID");
+            return;
+        }
+
+        if (!attendance[id]) {
+            alert("Employee has not punched in.");
+            return;
+        }
+
+        attendance[id].punchOut = getTime();
+
+        document.getElementById("message").innerText =
+            "Punch Out successful for " + id;
+
+        document.getElementById("employeeId").value = "";
+
+        showAttendance();
+    }
+
+    function showAttendance() {
+        const table = document.getElementById("attendanceTable");
+
+        table.innerHTML = "";
+
+        for (const id in attendance) {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${id}</td>
+                <td>${attendance[id].punchIn}</td>
+                <td>${attendance[id].punchOut}</td>
+                <td>${attendance[id].status}</td>
+            `;
+
+            table.appendChild(row);
+        }
+    }
+</script>
+
+</body>
+</html>
