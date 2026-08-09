@@ -38,10 +38,6 @@
             margin-bottom: 20px;
         }
 
-        h2 {
-            margin-top: 0;
-        }
-
         input {
             width: 100%;
             padding: 12px;
@@ -69,16 +65,6 @@
             color: white;
         }
 
-        .admin {
-            background: #007bff;
-            color: white;
-        }
-
-        #message {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -93,6 +79,10 @@
 
         th {
             background: #eee;
+        }
+
+        #message {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -109,45 +99,18 @@
     <div class="card">
         <h2>Employee Punch</h2>
 
-        <input type="text" id="employeeId" placeholder="Enter Employee ID">
+        <input
+            type="text"
+            id="employeeId"
+            placeholder="Enter Employee ID"
+        >
 
-        <button class="punch-in" onclick="punchIn()">
+        <button class="punch-in" id="punchInButton">
             Punch In
         </button>
 
-        <button class="punch-out" onclick="punchOut()">
+        <button class="punch-out" id="punchOutButton">
             Punch Out
         </button>
 
         <p id="message"></p>
-    </div>
-
-    <div class="card">
-        <h2>Today's Attendance</h2>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Employee ID</th>
-                    <th>Punch In</th>
-                    <th>Punch Out</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-
-            <tbody id="attendanceTable">
-            </tbody>
-        </table>
-    </div>
-
-</div>
-
-<script>
-
-    let attendance = {};
-
-    function getTime() {
-        return new Date().toLocaleTimeString();
-    }
-
-    function punchIn() {
