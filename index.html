@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Attendance & Payroll - Login</title>
 
     <style>
@@ -32,7 +31,7 @@
         }
 
         h1 {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         p {
@@ -100,16 +99,14 @@
     </div>
 
     <script>
-
         function login() {
 
             const username =
-                document.getElementById("username").value;
+                document.getElementById("username").value.trim();
 
             const password =
                 document.getElementById("password").value;
 
-            // Temporary simple login
             const correctUsername = "admin";
             const correctPassword = "12345";
 
@@ -118,16 +115,14 @@
                 password === correctPassword
             ) {
 
-                window.location.href = "index.html";
+                window.location.href = "attendance.html";
 
             } else {
 
                 document.getElementById("error").innerText =
                     "Invalid username or password.";
-
             }
         }
-
     </script>
 
 </body>
